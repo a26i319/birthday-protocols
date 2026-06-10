@@ -16,19 +16,19 @@ const CakeScreen = (() => {
   const C = {
     bg:        '#000000',
     panel:     '#0a0a0a',
-    accent:    '#1DCD9F',
+    accent:    '#FF62BB',
     accentDim: '#169976',
     border:    '#222222',
-    cake1:     '#2a1a0a',   // dark chocolate layer
-    cake2:     '#3d2510',   // mid brown
-    icing:     '#1DCD9F',   // accent icing
-    icingDim:  '#0d6b52',
-    plate:     '#111111',
-    candle:    '#169976',
-    wax:       '#0a4433',
+    cake1:     '#FF62BB',   // dark chocolate layer
+    cake2:     '#FF97D0',   // mid brown
+    icing:     '#FBF5A7',   // accent icing
+    icingDim:  '#B331F1',
+    plate:     '#FFFFFF',
+    candle:    '#FF97D0',
+    wax:       '#FFFFFF',
     flame:     '#FFD166',
     flameTip:  '#FF9F1C',
-    particle:  '#1DCD9F',
+    particle:  '#B331F1',
   };
 
   // ── Cake geometry ─────────────────────────────────────────

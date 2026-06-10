@@ -1,19 +1,4 @@
-/* ============================================================
-   BIRTHDAY PROTOCOL — data/memories.js
-   Memory card data.
 
-   HOW TO CUSTOMIZE:
-   Replace `image` paths with your own photo paths or URLs.
-   Edit `caption` and `date` fields as needed.
-   Add or remove entries from the array.
-
-   Each entry:
-   {
-     image:   string  — path or URL to image
-     caption: string  — short description shown on the card
-     date:    string  — optional date label (e.g. "Summer 2022")
-   }
-   ============================================================ */
 
 'use strict';
 

@@ -1,7 +1,4 @@
-/* ============================================================
-   BIRTHDAY PROTOCOL — app.js
-   Main orchestrator: screen management, transitions, init.
-   ============================================================ */
+
 
 'use strict';
 
