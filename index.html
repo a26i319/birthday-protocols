@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Birthday Protocol v1.0 — A retro interactive birthday experience." />
+  <title>BIRTHDAY PROTOCOL v1.0</title>
+
+  <!-- Pixel fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./src/css/style.css" />
+  <link rel="stylesheet" href="./src/css/animations.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       SCREEN 1 — LOADING
+  ============================================================ -->
+  <section id="screen-loading" class="screen screen--active" role="main" aria-label="Loading screen">
+    <div class="loading__inner">
+
+      <div class="loading__header">
+        <p class="loading__title font-heading">BIRTHDAY PROTOCOL</p>
+        <p class="loading__version font-mono">v1.0</p>
+      </div>
+
+      <div class="loading__log" id="boot-log" role="log" aria-live="polite" aria-label="Boot log">
+        <!-- Boot lines injected by loading.js -->
+      </div>
+
+      <div class="loading__progress-wrap" aria-label="Loading progress">
+        <div class="loading__progress-bar">
+          <div class="loading__progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="loading__progress-label font-mono" id="progress-label">0%</span>
+      </div>
+
+      <p class="loading__cta font-mono" id="loading-cta" aria-hidden="true">
+        PRESS ANYWHERE TO START
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 2 — WELCOME
+  ============================================================ -->
+  <section id="screen-welcome" class="screen" role="main" aria-label="Welcome screen" aria-hidden="true">
+    <div class="dialogue-box" role="dialog" aria-labelledby="welcome-text">
+      <div class="dialogue-box__header">
+        <span class="font-mono">INCOMING MESSAGE</span>
+        <span class="dialogue-box__blink font-mono">_</span>
+      </div>
+      <div class="dialogue-box__body">
+        <p class="dialogue-box__text font-body" id="welcome-text" aria-live="polite"></p>
+      </div>
+      <div class="dialogue-box__footer">
+        <button class="btn-pixel font-mono" id="welcome-continue" aria-label="Continue to next screen">
+          [ CONTINUE ]
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 3 — BIRTHDAY CAKE
+  ============================================================ -->
+  <section id="screen-cake" class="screen" role="main" aria-label="Birthday cake screen" aria-hidden="true">
+    <div class="cake-container">
+      <p class="cake__prompt font-heading" id="cake-prompt">MAKE A WISH</p>
+
+      <div class="cake__canvas-wrap">
+        <canvas id="cake-canvas"
+                width="300"
+                height="320"
+                tabindex="0"
+                role="button"
+                aria-label="Birthday cake — click or press space to blow out the candle">
+        </canvas>
+      </div>
+
+      <p class="cake__hint font-mono" id="cake-hint">CLICK CANDLE  /  PRESS SPACE</p>
+      <p class="cake__status font-heading" id="cake-status" aria-live="assertive"></p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 4 — PENALTY CHALLENGE
+  ============================================================ -->
+  <section id="screen-penalty" class="screen" role="main" aria-label="Penalty challenge screen" aria-hidden="true">
+    <div class="penalty-container">
+
+      <div class="penalty__hud">
+        <span class="font-mono penalty__hud-label">GOALS:</span>
+        <span class="font-heading penalty__hud-score" id="goal-counter" aria-live="polite">0 / 3</span>
+      </div>
+
+      <p class="penalty__status font-mono" id="penalty-status" aria-live="assertive">
+        DRAG TO AIM — RELEASE TO SHOOT
+      </p>
+
+      <div class="penalty__canvas-wrap">
+        <canvas id="penalty-canvas"
+                tabindex="0"
+                role="application"
+                aria-label="Penalty kick game. Drag and release to shoot the ball at the goal.">
+        </canvas>
+      </div>
+
+      <p class="penalty__objective font-mono">RECOVER 3 MEMORIES — SCORE 3 GOALS</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 5 — MEMORY ARCHIVE
+  ============================================================ -->
+  <section id="screen-archive" class="screen" role="main" aria-label="Memory archive screen" aria-hidden="true">
+    <div class="archive-container">
+      <div class="archive__header">
+        <p class="archive__title font-heading">MEMORY ARCHIVE</p>
+        <p class="archive__subtitle font-mono">[ ALL FILES RESTORED ]</p>
+      </div>
+      <div class="archive__grid" id="archive-grid" role="list" aria-label="Memory cards">
+        <!-- Memory cards injected by archive.js -->
+      </div>
+      <button class="btn-pixel font-mono archive__continue" id="archive-continue" aria-label="Continue to final message">
+        [ CONTINUE ]
+      </button>
+    </div>
+
+    <!-- Expanded card overlay -->
+    <div class="card-overlay" id="card-overlay" role="dialog" aria-modal="true" aria-label="Memory detail" aria-hidden="true">
+      <div class="card-overlay__inner">
+        <img class="card-overlay__img" id="overlay-img" src="" alt="" />
+        <p class="card-overlay__caption font-body" id="overlay-caption"></p>
+        <p class="card-overlay__date font-mono" id="overlay-date"></p>
+        <button class="btn-pixel font-mono card-overlay__close" id="overlay-close" aria-label="Close memory">
+          [ CLOSE ]
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 6 — FINAL LETTER
+  ============================================================ -->
+  <section id="screen-letter" class="screen" role="main" aria-label="Final letter screen" aria-hidden="true">
+    <div class="letter-container">
+      <div class="letter__text font-body" id="letter-text" aria-live="polite">
+        <!-- Lines injected by letter.js -->
+      </div>
+      <div class="letter__finale" id="letter-finale" aria-hidden="true">
+        <p class="font-heading letter__mission">MISSION COMPLETE</p>
+        <p class="font-mono letter__thanks">THANK YOU FOR PLAYING</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+DATA MODULES (no fetch needed, inline data)
+  ============================================================ -->
+  <script src="./data/letter.js"></script>
+  <script src="./data/memories.js"></script>
+
+  <!-- ============================================================
+      SCREEN MODULES
+  ============================================================ -->
+  <script src="./src/js/loading.js"></script>
+  <script src="./src/js/welcome.js"></script>
+  <script src="./src/js/cake.js"></script>
+  <script src="./src/js/penalty.js"></script>
+  <script src="./src/js/archive.js"></script>
+  <script src="./src/js/letter.js"></script>
+
+  <!-- MAIN ORCHESTRATOR — must load last -->
+  <script src="./src/js/app.js"></script>
+
+</body>
+</html>
