@@ -155,15 +155,22 @@ const PenaltyScreen = (() => {
         ball.y > GOAL_LINE_Y &&
         ball.x > GOAL_X + POST_W &&
         ball.x < GOAL_X + GOAL_W - POST_W) {
-      _onGoal();
-      return;
+
+      // Make sure keeper didn't catch it first
+      if (!(ball.y < KEEPER_Y + KEEPER_H + BALL_RADIUS &&
+            ball.y > KEEPER_Y - BALL_RADIUS &&
+            ball.x > keeper.x - BALL_RADIUS &&
+            ball.x < keeper.x + KEEPER_W + BALL_RADIUS)) {
+        _onGoal();
+        return;
+      }
     }
 
-    // Check keeper save
-    if (ball.y < KEEPER_Y + KEEPER_H &&
-        ball.y > KEEPER_Y &&
-        ball.x > keeper.x &&
-        ball.x < keeper.x + KEEPER_W) {
+    // Check keeper save — with BALL_RADIUS padding so edges register
+    if (ball.y < KEEPER_Y + KEEPER_H + BALL_RADIUS &&
+        ball.y > KEEPER_Y - BALL_RADIUS &&
+        ball.x > keeper.x - BALL_RADIUS &&
+        ball.x < keeper.x + KEEPER_W + BALL_RADIUS) {
       _onSave();
       return;
     }
@@ -203,6 +210,13 @@ const PenaltyScreen = (() => {
 
   function _onSave() {
     phase = 'result';
+
+    // Snap ball to keeper's hands and stop it dead
+    ball.vx = 0;
+    ball.vy = 0;
+    ball.x  = keeper.x + KEEPER_W / 2;
+    ball.y  = KEEPER_Y + 8;
+
     _setStatus('SAVED — TRY AGAIN', false);
     setTimeout(() => {
       _resetBall();
@@ -439,18 +453,28 @@ const PenaltyScreen = (() => {
 
     // Arms
     ctx.fillStyle = C.keeperH;
-    ctx.fillRect(x,               y + 18, 6, KEEPER_H - 30);
+    ctx.fillRect(x,                y + 18, 6, KEEPER_H - 30);
     ctx.fillRect(x + KEEPER_W - 6, y + 18, 6, KEEPER_H - 30);
 
     // Legs
     ctx.fillStyle = C.keeper;
-    ctx.fillRect(x + 6,              y + KEEPER_H - 14, 10, 14);
-    ctx.fillRect(x + KEEPER_W - 16,  y + KEEPER_H - 14, 10, 14);
+    ctx.fillRect(x + 6,             y + KEEPER_H - 14, 10, 14);
+    ctx.fillRect(x + KEEPER_W - 16, y + KEEPER_H - 14, 10, 14);
 
     // Pixel border
     ctx.strokeStyle = C.accentDm;
     ctx.lineWidth   = 1;
     ctx.strokeRect(x + 4, y, KEEPER_W - 8, KEEPER_H);
+
+    // Show ball in hands when saving
+    if (phase === 'result' &&
+        ball.y === KEEPER_Y + 8 &&
+        ball.vx === 0 && ball.vy === 0) {
+      ctx.fillStyle = C.white;
+      ctx.fillRect(x + KEEPER_W / 2 - 5, y + 14, 10, 10);
+      ctx.fillStyle = C.ballMark;
+      ctx.fillRect(x + KEEPER_W / 2 - 2, y + 16, 3, 3);
+    }
   }
 
   function _drawBall() {
@@ -475,7 +499,6 @@ const PenaltyScreen = (() => {
   function _pixelCircle(cx, cy, r) {
     // Square-ish pixel circle
     const r2 = r * r;
-    const rOuter = r + 0.5;
     for (let px = -r; px <= r; px++) {
       for (let py = -r; py <= r; py++) {
         if (px * px + py * py <= r2) {

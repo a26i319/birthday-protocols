@@ -17,7 +17,7 @@ const CakeScreen = (() => {
     bg:        '#000000',
     panel:     '#0a0a0a',
     accent:    '#FF62BB',
-    accentDim: '#169976',
+    accentDim: '#B331F1',
     border:    '#222222',
     cake1:     '#FF62BB',   // dark chocolate layer
     cake2:     '#FF97D0',   // mid brown
@@ -25,7 +25,7 @@ const CakeScreen = (() => {
     icingDim:  '#B331F1',
     plate:     '#FFFFFF',
     candle:    '#FF97D0',
-    wax:       '#FFFFFF',
+    wax:       '#FBF5A7',
     flame:     '#FFD166',
     flameTip:  '#FF9F1C',
     particle:  '#B331F1',
@@ -33,15 +33,16 @@ const CakeScreen = (() => {
 
   // ── Cake geometry ─────────────────────────────────────────
   const CAKE = {
-    // Bottom tier
-    b: { x: 40, y: 210, w: 220, h: 60 },
-    // Top tier
-    t: { x: 70, y: 145, w: 160, h: 60 },
-    // Plate
-    p: { x: 20, y: 268, w: 260, h: 16 },
-    // Candle (center of top tier)
-    candle: { x: 142, y: 98, w: 16, h: 50 },
-  };
+  b:  { x: 30,  y: 220, w: 240, h: 55 },  // bottom tier
+  m:  { x: 55,  y: 160, w: 190, h: 55 },  // middle tier
+  t:  { x: 80,  y: 100, w: 140, h: 55 },  // top tier
+  p:  { x: 10,  y: 273, w: 280, h: 16 },  // plate
+  candles: [
+    { x: 118, y: 55, w: 14, h: 48 },      // left candle
+    { x: 143, y: 55, w: 14, h: 48 },      // center candle
+    { x: 168, y: 55, w: 14, h: 48 },      // right candle
+  ],
+};
 
   // ── State ─────────────────────────────────────────────────
   let canvas, ctx;
@@ -81,11 +82,13 @@ const CakeScreen = (() => {
     _clear();
     _drawPlate();
     _drawCakeTier(CAKE.b, 8);
+    _drawCakeTier(CAKE.m, 7);
     _drawCakeTier(CAKE.t, 6);
     _drawIcingDrip(CAKE.b, 10);
-    _drawIcingDrip(CAKE.t, 8);
-    _drawCandle();
-    if (candleLit) _drawFlame();
+    _drawIcingDrip(CAKE.m, 8);
+    _drawIcingDrip(CAKE.t, 6);
+    CAKE.candles.forEach((c, i) => _drawCandle(c));
+    if (candleLit) CAKE.candles.forEach((c, i) => _drawFlame(c, i));
     _drawParticles();
 
     flickerAngle += 0.08;
@@ -142,8 +145,8 @@ const CakeScreen = (() => {
     }
   }
 
-  function _drawCandle() {
-    const { x, y, w, h } = CAKE.candle;
+  function _drawCandle(candle) {
+    const { x, y, w, h } = candle;
     _pixelRect(x, y, w, h, C.candle, C.wax);
 
     // Wax stripes
@@ -153,9 +156,9 @@ const CakeScreen = (() => {
     }
   }
 
-  function _drawFlame() {
-    const cx = CAKE.candle.x + CAKE.candle.w / 2;
-    const cy = CAKE.candle.y;
+  function _drawFlame(candle, index) {
+  const cx = candle.x + candle.w / 2;
+  const cy = candle.y;
 
     // Animated flicker offset
     const flicker = Math.sin(flickerAngle) * 2.5;
@@ -227,10 +230,10 @@ const CakeScreen = (() => {
   function _blowCandle() {
     candleLit = false;
 
-    // Spawn particles at flame position
-    const cx = CAKE.candle.x + CAKE.candle.w / 2;
-    const cy = CAKE.candle.y - 10;
-    _spawnParticles(cx, cy, 28);
+    // Spawn particles at all flame positions
+    CAKE.candles.forEach(c => {
+      _spawnParticles(c.x + c.w / 2, c.y - 10, 12);
+    });
 
     // Screen flash
     _triggerScreenFlash();
