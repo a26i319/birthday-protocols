@@ -4,33 +4,31 @@
 
 const MEMORIES = [
   {
-    image:   'https://picsum.photos/seed/mem01/400/300',
-    caption: 'That one perfect afternoon',
-    date:    'Summer 2022',
+    image:   './src/img/beach.jpg',
+    caption: 'koko nae tu tu beach sunset tu tu twr kyi khe tr lay💕🌅',
+    
   },
   {
-    image:   'https://picsum.photos/seed/mem02/400/300',
-    caption: 'The trip we almost cancelled',
-    date:    'October 2022',
+    image:   './src/img/castle.jpg',
+    caption: ' Okayama mhr sa sa oo sone shout lal khe te day lay 💕✨',
+    
   },
   {
-    image:   'https://picsum.photos/seed/mem03/400/300',
-    caption: 'First time trying that thing',
-    date:    'January 2023',
+    image:   './src/img/kiss.jpg',
+    caption: 'anni day mhr yakiniku sar ya mhr mho pyor nay tae yoke lay nae 😁💕',
+    
   },
   {
-    image:   'https://picsum.photos/seed/mem04/400/300',
-    caption: 'We laughed for an hour',
-    date:    'March 2023',
+    image:   './src/img/amusement.jpg',
+    caption: 'ma arr tae gyar ka uzou mhr shi tae nay yar lay tway lyk pox lo myr gyi pyor khe ya tae nae lay🥺💕',
+    
   },
   {
-    image:   'https://picsum.photos/seed/mem05/400/300',
-    caption: 'The view from up there',
-    date:    'July 2023',
+    image:   './src/img/work.jpg',
+    caption: 'Koko yak work ko first time lr p koko a loke loke tr lay ko a pyin mhr ko tine kyi khe ya tae nae lay a pyor sone nae lay 💕😚',
   },
   {
-    image:   'https://picsum.photos/seed/mem06/400/300',
-    caption: 'Just an ordinary day',
-    date:    'December 2023',
+    image:   './src/img/shadow.jpg',
+    caption: 'sch pyat p lan tway a kyr gyi shout p twr khe te hidden place lay 💕',
   },
 ];
