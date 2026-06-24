@@ -673,6 +673,7 @@ canvas:focus-visible,
   background: #000;
   align-items: stretch;
   justify-content: stretch;
+  overflow: hidden;
 }
 
 .video-finale-container {
@@ -681,6 +682,8 @@ canvas:focus-visible,
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .video-label {
@@ -751,6 +754,17 @@ canvas:focus-visible,
   .dialogue-box__body {
     padding: var(--space-md);
   }
+  .finale-video {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    /* show full video without cropping on portrait */
+  }
+  .video-label {
+    font-size: clamp(0.6rem, 2.5vw, 0.8rem);
+    top: 8px;
+    left: 8px;
+  }
 }
 
 @media (max-height: 600px) {
@@ -758,5 +772,20 @@ canvas:focus-visible,
     align-items: flex-start;
     padding-top: var(--space-lg);
     overflow-y: auto;
+  }
+}
+@media (max-width: 768px) {
+  .video-finale-container {
+    height: 100dvh;
+  }
+
+  .finale-video {
+    object-fit: contain;  /* show full video without cropping on portrait */
+  }
+
+  .video-label {
+    font-size: clamp(0.7rem, 2.5vw, 1rem);
+    top: 12px;
+    left: 12px;
   }
 }
