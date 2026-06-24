@@ -156,10 +156,29 @@
       <div class="letter__finale" id="letter-finale" aria-hidden="true">
         <p class="font-heading letter__mission">MISSION COMPLETE</p>
         <p class="font-mono letter__thanks">THANK YOU FOR PLAYING</p>
+        <div class="letter-finale-btn" id="letter-finale-btn">
+          
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- SCREEN 7: VIDEO FINALE -->
+  <section id="screen-video" class="screen">
+    <div class="video-finale-container">
+      <div class="video-label" id="video-label">// END CREDITS</div>
+      <video id="finale-video" class="finale-video" playsinline preload="auto">
+        <source src="./src/video/finale.mp4" type="video/mp4" />
+        <source src="./src/video/finale.webm" type="video/webm" />
+      </video>
+      
+    </div>
+  </section>
+
+  <!-- Music -->
+  <audio id="bg-music" loop preload="auto">
+      <source src="./src/audio/bg.mp3" type="audio/mpeg" />
+  </audio>
   <!-- ============================================================
 DATA MODULES (no fetch needed, inline data)
   ============================================================ -->
@@ -175,6 +194,7 @@ DATA MODULES (no fetch needed, inline data)
   <script src="./src/js/penalty.js"></script>
   <script src="./src/js/archive.js"></script>
   <script src="./src/js/letter.js"></script>
+  <script src="./src/js/video.js"></script>
 
   <!-- MAIN ORCHESTRATOR — must load last -->
   <script src="./src/js/app.js"></script>

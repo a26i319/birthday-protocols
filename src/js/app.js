@@ -10,6 +10,7 @@ const SCREEN_ORDER = [
   'screen-penalty',
   'screen-archive',
   'screen-letter',
+  'screen-video',
 ];
 
 // ── State ────────────────────────────────────────────────────
@@ -104,6 +105,9 @@ App.on('screen:active', (screenId) => {
     case 'screen-letter':
       if (typeof LetterScreen !== 'undefined') LetterScreen.init();
       break;
+    case 'screen-video':
+      if (typeof VideoScreen !== 'undefined') VideoScreen.init();
+      break;
   }
 });
 
@@ -116,8 +120,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize loading screen (auto-starts)
   if (typeof LoadingScreen !== 'undefined') {
-    LoadingScreen.init();
-  } else {
-    console.error('[App] LoadingScreen module not found.');
+  LoadingScreen.init();
+} else {
+  console.error('[App] LoadingScreen module not found.');
+}
+
+// Start music on first user interaction (browser requires gesture)
+document.addEventListener('click', () => {
+  const music = document.getElementById('bg-music');
+  if (music) {
+    music.volume = 0.3;
+    music.play().catch(() => {});
   }
+}, { once: true });
+
 });

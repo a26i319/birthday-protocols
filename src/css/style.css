@@ -641,6 +641,13 @@ canvas:focus-visible,
   gap: var(--space-lg);
   opacity: 0;
   transition: opacity 1s ease;
+  align-items: center;
+}
+
+.letter-finale-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-md);
 }
 
 .letter__finale--visible {
@@ -658,6 +665,69 @@ canvas:focus-visible,
   color: var(--c-text-dim);
   font-size: var(--fs-vt);
   letter-spacing: 0.1em;
+}
+
+/* ---- SCREEN 7: VIDEO FINALE ---- */
+#screen-video {
+  padding: 0;
+  background: #000;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.video-finale-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-label {
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  z-index: 10;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--c-text-dim);
+  pointer-events: none;
+}
+
+.finale-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-overlay-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 10;
+  animation: fade-in 1s ease;
+}
+
+.end-title {
+  font-family: var(--font-heading);
+  font-size: clamp(12px, 3vw, 20px);
+  color: var(--c-accent);
+  text-shadow: 0 0 40px var(--c-accent-dim);
+  text-align: center;
+}
+
+.end-sub {
+  font-family: var(--font-mono);
+  font-size: clamp(16px, 2.5vw, 22px);
+  color: var(--c-text-dim);
+  letter-spacing: 0.2em;
+  text-align: center;
 }
 
 /* ------------------------------------------------------------

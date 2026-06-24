@@ -93,7 +93,15 @@ const LetterScreen = (() => {
     }
 
     finaleEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    const btn = document.createElement('button');
+    btn.className = 'btn-pixel font-mono';
+    btn.textContent = '[ PLAY FINAL SURPRISE ]';
+    btn.style.marginTop = '16px';
+    btn.addEventListener('click', () => window.transitionTo('screen-video'), { once: true });
+    document.getElementById('letter-finale-btn').appendChild(btn);
   }
+
+  
 
   // ── Public API ────────────────────────────────────────────
   return { init };
