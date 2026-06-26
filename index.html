@@ -165,15 +165,19 @@
 
   <!-- SCREEN 7: VIDEO FINALE -->
   <section id="screen-video" class="screen">
-    <div class="video-finale-container">
-      <div class="video-label" id="video-label">// END CREDITS</div>
-      <video id="finale-video" class="finale-video" playsinline preload="auto">
-        <source src="./src/video/finale.mp4" type="video/mp4" />
-        <source src="./src/video/finale.webm" type="video/webm" />
-      </video>
-      
+  <div class="video-finale-container">
+    <div class="video-label" id="video-label">// END CREDITS</div>
+    <video id="finale-video" class="finale-video" playsinline preload="auto">
+      <source src="./src/video/finale.mp4" type="video/mp4" />
+      <source src="./src/video/finale.webm" type="video/webm" />
+    </video>
+    <div class="video-overlay-text" id="video-end-overlay">
+      <p class="end-title font-heading">HAPPY BIRTHDAY BRO !!!</p>
+      <p class="end-sub font-mono">// THU REIN //</p>
+      <button class="btn-pixel font-mono" onclick="location.reload()">[ RESTART ]</button>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Music -->
   <audio id="bg-music" loop preload="auto">

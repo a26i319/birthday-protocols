@@ -1,13 +1,11 @@
 /* ============================================================
    BIRTHDAY PROTOCOL — style.css
-   Base styles, CSS variables, layout, components
    ============================================================ */
 
 /* ------------------------------------------------------------
    1. CSS CUSTOM PROPERTIES
    ------------------------------------------------------------ */
 :root {
-  /* Color system */
   --c-bg:          #000000;
   --c-panel:       #0a0a0a;
   --c-border:      #222222;
@@ -19,7 +17,6 @@
   --c-text-muted:  #555555;
   --c-overlay:     rgba(0, 0, 0, 0.88);
 
-  /* Typography scale */
   --font-heading:  'Press Start 2P', monospace;
   --font-body:     'VT323', monospace;
   --font-mono:     'VT323', monospace;
@@ -31,18 +28,15 @@
   --fs-body:  clamp(1.1rem, 2.5vw, 1.4rem);
   --fs-vt:    clamp(1.2rem, 3vw, 1.6rem);
 
-  /* Spacing */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 2rem;
   --space-xl: 4rem;
 
-  /* Border */
-  --border-pixel: 2px solid var(--c-border);
+  --border-pixel:  2px solid var(--c-border);
   --border-accent: 2px solid var(--c-accent);
 
-  /* Transition */
   --transition-fast:   150ms ease;
   --transition-base:   300ms ease;
   --transition-slow:   600ms ease;
@@ -76,12 +70,10 @@ body {
   image-rendering: pixelated;
 }
 
-/* Scrollable body when needed */
 body.scroll-enabled {
   overflow-y: auto;
 }
 
-/* Pixel rendering for canvas elements */
 canvas {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
@@ -125,7 +117,6 @@ canvas:focus-visible,
 
 /* ------------------------------------------------------------
    4. SCREEN SYSTEM
-   Each screen fills the viewport; only one visible at a time.
    ------------------------------------------------------------ */
 .screen {
   position: fixed;
@@ -147,7 +138,6 @@ canvas:focus-visible,
   z-index: 2;
 }
 
-/* Scanline overlay — subtle CRT texture */
 .screen::before {
   content: '';
   position: fixed;
@@ -255,7 +245,6 @@ canvas:focus-visible,
   color: #ff4444;
 }
 
-/* Progress bar */
 .loading__progress-wrap {
   display: flex;
   align-items: center;
@@ -286,7 +275,6 @@ canvas:focus-visible,
   text-align: right;
 }
 
-/* CTA line */
 .loading__cta {
   font-size: var(--fs-vt);
   color: var(--c-accent);
@@ -301,7 +289,7 @@ canvas:focus-visible,
 }
 
 /* ------------------------------------------------------------
-   7. SCREEN 2 — WELCOME (DIALOGUE BOX)
+   7. SCREEN 2 — WELCOME
    ------------------------------------------------------------ */
 .dialogue-box {
   width: 100%;
@@ -476,7 +464,6 @@ canvas:focus-visible,
   font-size: var(--fs-vt);
 }
 
-/* Memory grid */
 .archive__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -546,7 +533,6 @@ canvas:focus-visible,
   text-overflow: ellipsis;
 }
 
-/* Card overlay (expanded view) */
 .card-overlay {
   position: fixed;
   inset: 0;
@@ -638,16 +624,10 @@ canvas:focus-visible,
   text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-lg);
   opacity: 0;
   transition: opacity 1s ease;
-  align-items: center;
-}
-
-.letter-finale-btn {
-  display: flex;
-  justify-content: center;
-  margin-top: var(--space-md);
 }
 
 .letter__finale--visible {
@@ -667,23 +647,25 @@ canvas:focus-visible,
   letter-spacing: 0.1em;
 }
 
-/* ---- SCREEN 7: VIDEO FINALE ---- */
+.letter-finale-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-md);
+}
+
+/* ------------------------------------------------------------
+   12. SCREEN 7 — VIDEO FINALE
+   ------------------------------------------------------------ */
 #screen-video {
   padding: 0;
-  background: #000;
-  align-items: stretch;
-  justify-content: stretch;
   overflow: hidden;
 }
 
 .video-finale-container {
   position: relative;
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  height: 100dvh;
+  background: #000;
 }
 
 .video-label {
@@ -692,7 +674,7 @@ canvas:focus-visible,
   left: 20px;
   z-index: 10;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--fs-vt);
   color: var(--c-text-dim);
   pointer-events: none;
 }
@@ -712,30 +694,46 @@ canvas:focus-visible,
   align-items: center;
   justify-content: center;
   gap: 20px;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.82);
   z-index: 10;
-  animation: fade-in 1s ease;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+}
+
+.video-overlay-text--visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .end-title {
-  font-family: var(--font-heading);
-  font-size: clamp(12px, 3vw, 20px);
+  font-size: clamp(0.7rem, 2.5vw, 1rem);
   color: var(--c-accent);
   text-shadow: 0 0 40px var(--c-accent-dim);
   text-align: center;
 }
 
 .end-sub {
-  font-family: var(--font-mono);
-  font-size: clamp(16px, 2.5vw, 22px);
+  font-size: var(--fs-vt);
   color: var(--c-text-dim);
   letter-spacing: 0.2em;
   text-align: center;
 }
 
 /* ------------------------------------------------------------
-   12. RESPONSIVE ADJUSTMENTS
+   13. RESPONSIVE
    ------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .finale-video {
+    object-fit: contain;
+  }
+
+  .video-label {
+    top: 12px;
+    left: 12px;
+  }
+}
+
 @media (max-width: 480px) {
   .screen {
     padding: var(--space-md);
@@ -754,16 +752,15 @@ canvas:focus-visible,
   .dialogue-box__body {
     padding: var(--space-md);
   }
+
   .finale-video {
     object-fit: contain;
-    width: 100%;
-    height: 100%;
-    /* show full video without cropping on portrait */
   }
+
   .video-label {
-    font-size: clamp(0.6rem, 2.5vw, 0.8rem);
     top: 8px;
     left: 8px;
+    font-size: clamp(0.6rem, 2.5vw, 0.8rem);
   }
 }
 
@@ -774,18 +771,9 @@ canvas:focus-visible,
     overflow-y: auto;
   }
 }
-@media (max-width: 768px) {
-  .video-finale-container {
-    height: 100dvh;
-  }
 
+@media (max-height: 480px) and (orientation: landscape) {
   .finale-video {
-    object-fit: contain;  /* show full video without cropping on portrait */
-  }
-
-  .video-label {
-    font-size: clamp(0.7rem, 2.5vw, 1rem);
-    top: 12px;
-    left: 12px;
+    object-fit: cover;
   }
 }

@@ -1,5 +1,6 @@
+'use strict';
+
 const VideoScreen = (function () {
-  'use strict';
 
   let initialized = false;
 
@@ -11,24 +12,32 @@ const VideoScreen = (function () {
     const overlay = document.getElementById('video-end-overlay');
     const labelEl = document.getElementById('video-label');
 
-    function tryPlay() {
-      const p = video.play();
-      if (p !== undefined) {
-        p.catch(() => {
-          video.muted = true;
-          video.play().catch(showFallback);
-        });
-      }
-    }
-
     
+  
 
+    // Show overlay only after video ends
+    video.addEventListener('ended', () => {
+      overlay.classList.add('video-overlay-text--visible');
+    });
+
+    // Fade out label after 3s
     setTimeout(() => {
       labelEl.style.transition = 'opacity 1s ease';
       labelEl.style.opacity = '0';
     }, 3000);
 
     tryPlay();
+  }
+
+  function tryPlay() {
+    const video = document.getElementById('finale-video');
+    const p = video.play();
+    if (p !== undefined) {
+      p.catch(() => {
+        video.muted = true;
+        video.play().catch(showFallback);
+      });
+    }
   }
 
   function showFallback() {
@@ -38,4 +47,5 @@ const VideoScreen = (function () {
   }
 
   return { init };
+
 })();
